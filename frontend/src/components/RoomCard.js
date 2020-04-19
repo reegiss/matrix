@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => ({
     alignItems: "stretch"
   },
   content: {
-    flex: 1
+    flex: 1,
   },
   userGrid: {
     display: "grid",
@@ -49,7 +49,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const RoomCard = ({ name, users, meetingEnabled, onEnterRoom, onEnterMeeting }) => {
+const RoomCard = ({ name, users, meetingEnabled, chatEnabled, onEnterRoom, onEnterMeeting }) => {
   const [isExpanded, toggleExpand] = useState(false);
   const classes = useStyles();
   const userToShow = isExpanded ? users : users.slice(0, 3);
@@ -90,13 +90,19 @@ const RoomCard = ({ name, users, meetingEnabled, onEnterRoom, onEnterMeeting }) 
       </CardActionArea>
       <CardActions>
         <Button size="small" color="primary" onClick={onEnterRoom}>
-          Enter room
+          Entrar na Sala
         </Button>
+        
         {meetingEnabled && (
           <Button size="small" color="primary" onClick={onEnterMeeting}>
-            Enter meeting
+            Entrar na reunião
           </Button>
         )}
+        {chatEnabled && (
+            <Button size="small" color="primary" onClick={onEnterMeeting}>
+              Entrar no chat
+            </Button>
+          )}
       </CardActions>
     </Card>
   );
@@ -106,6 +112,7 @@ RoomCard.propTypes = {
   onEnterRoom: PropTypes.func,
   onEnterMeeting: PropTypes.func,
   meetingEnabled: PropTypes.bool,
+  chatEnabled: PropTypes.bool,
   users: PropTypes.arrayOf(PropTypes.object),
   name: PropTypes.string
 };
@@ -114,6 +121,7 @@ RoomCard.defaultProps = {
   onEnterRoom: () => {},
   onEnterMeeting: () => {},
   meetingEnabled: true,
+  chatEnabled: true,
   users: [],
   name: ""
 };
